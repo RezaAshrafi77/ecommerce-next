@@ -1,3 +1,4 @@
+import { debounce } from "@/utils/debounce"
 import { Box, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material"
 
 interface Props {
@@ -8,7 +9,6 @@ interface Props {
 }
 
 export default function SearchSortBar({
-    search,
     sort,
     onSearchChange,
     onSortChange,
@@ -17,17 +17,21 @@ export default function SearchSortBar({
         <Box display="flex" gap={2} mb={3} flexWrap="wrap">
             <TextField
                 label="Search"
-                value={search}
-                onChange={(e) => onSearchChange(e.target.value)}
+                fullWidth
+                size="small"
+                onChange={debounce((e) => onSearchChange(e.target.value), 300)}
             />
-
             <ToggleButtonGroup
                 value={sort}
                 exclusive
                 onChange={(e, val) => val && onSortChange(val)}
             >
-                <ToggleButton value="asc">Oldest</ToggleButton>
-                <ToggleButton value="desc">Newest</ToggleButton>
+                <ToggleButton size="small" value="asc">
+                    Oldest
+                </ToggleButton>
+                <ToggleButton size="small" value="desc">
+                    Newest
+                </ToggleButton>
             </ToggleButtonGroup>
         </Box>
     )
