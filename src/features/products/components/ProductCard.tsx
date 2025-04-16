@@ -10,6 +10,7 @@ import { Product } from "../services/productService"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
 import { useFavorites } from "@/store/useFavorites"
+import Link from "next/link"
 
 export default function ProductCard({ product }: { product: Product }) {
     const { toggleFavorite, isFavorite } = useFavorites()
@@ -17,7 +18,11 @@ export default function ProductCard({ product }: { product: Product }) {
     const fav = isFavorite(product.id)
 
     return (
-        <Card>
+        <Card
+            component={Link}
+            href={`/products/${product.id}`}
+            sx={{ textDecoration: "none" }}
+        >
             <CardMedia
                 component="img"
                 height="140"

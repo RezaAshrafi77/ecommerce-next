@@ -6,8 +6,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
     return (
         <Grid container spacing={2}>
             {products.map((product) => (
-                //@ts-expect-error its material error
-                <Grid item xs={12} sm={6} md={3} key={product.id}>
+                <Grid size={{ xs: 12, sm: 6, md: 3 }} key={product.id}>
                     <ProductCard product={product} />
                 </Grid>
             ))}
