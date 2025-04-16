@@ -6,6 +6,7 @@ import { getProducts, Product } from "../services/productService"
 import SearchSortBar from "./SearchSortBar"
 import ProductGrid from "./ProductGrid"
 import PaginationBar from ".//PaginationBar"
+import FavoriteList from "./FavoriteList"
 
 const LIMIT = 8
 
@@ -44,6 +45,7 @@ export default function ProductListPage() {
             />
 
             {/* علاقه‌مندی‌ها - در مرحله بعد */}
+            <FavoriteList />
 
             {loading ? (
                 <Box display="flex" justifyContent="center" py={4}>
