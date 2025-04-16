@@ -7,9 +7,15 @@ import {
     Button,
 } from "@mui/material"
 import { Product } from "../services/productService"
+import FavoriteIcon from "@mui/icons-material/Favorite"
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
+import { useFavorites } from "@/store/useFavorites"
 
 export default function ProductCard({ product }: { product: Product }) {
+    const { toggleFavorite, isFavorite } = useFavorites()
+
+    const fav = isFavorite(product.id)
+
     return (
         <Card>
             <CardMedia
@@ -25,8 +31,18 @@ export default function ProductCard({ product }: { product: Product }) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" startIcon={<FavoriteBorderIcon />}>
-                    Add to Favorites
+                <Button
+                    size="small"
+                    startIcon={
+                        fav ? (
+                            <FavoriteIcon color="error" />
+                        ) : (
+                            <FavoriteBorderIcon />
+                        )
+                    }
+                    onClick={() => toggleFavorite(product)}
+                >
+                    {fav ? "Remove" : "Add to Favorites"}
                 </Button>
             </CardActions>
         </Card>
