@@ -7,6 +7,10 @@ export interface Product {
     price: number
     thumbnail: string
     createdAt: string
+    brand: string
+    rating: number
+    category: string
+    stock: string
 }
 
 interface ProductResponse {
@@ -39,4 +43,14 @@ export const getProducts = async (params: {
     }
 
     return { ...res.data, products: sorted }
+}
+
+export async function getProductById(id: number): Promise<Product | null> {
+    try {
+        const res = await axios.get(`/products/${id}`)
+        return res.data
+    } catch (err) {
+        console.log(err)
+        return null
+    }
 }

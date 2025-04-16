@@ -3,8 +3,7 @@ import {
     CardMedia,
     CardContent,
     Typography,
-    CardActions,
-    Button,
+    IconButton,
 } from "@mui/material"
 import { Product } from "../services/productService"
 import FavoriteIcon from "@mui/icons-material/Favorite"
@@ -14,42 +13,60 @@ import Link from "next/link"
 
 export default function ProductCard({ product }: { product: Product }) {
     const { toggleFavorite, isFavorite } = useFavorites()
-
     const fav = isFavorite(product.id)
 
     return (
         <Card
-            component={Link}
-            href={`/products/${product.id}`}
-            sx={{ textDecoration: "none" }}
+            sx={{
+                textDecoration: "none",
+                position: "relative",
+            }}
         >
-            <CardMedia
-                component="img"
-                height="140"
-                image={product.thumbnail}
-                alt={product.title}
-            />
-            <CardContent>
-                <Typography variant="h6">{product.title}</Typography>
-                <Typography variant="body2" color="text.secondary">
+            <CardContent
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                }}
+                component={Link}
+                href={`/products/${product.id}`}
+            >
+                <CardMedia
+                    component={"img"}
+                    height={"240"}
+                    image={product.thumbnail}
+                    alt={product.title}
+                    style={{
+                        objectFit: "contain",
+                        marginBottom: 12,
+                    }}
+                />
+                <Typography variant="h6" fontSize={16}>
+                    {product.title}
+                </Typography>
+                <Typography mt={1} variant="body2" color="text.secondary">
                     ${product.price}
                 </Typography>
             </CardContent>
-            <CardActions>
-                <Button
-                    size="small"
-                    startIcon={
-                        fav ? (
-                            <FavoriteIcon color="error" />
-                        ) : (
-                            <FavoriteBorderIcon />
-                        )
-                    }
-                    onClick={() => toggleFavorite(product)}
-                >
-                    {fav ? "Remove" : "Add to Favorites"}
-                </Button>
-            </CardActions>
+
+            <IconButton
+                size="small"
+                onClick={(e) => {
+                    e.stopPropagation()
+                    toggleFavorite(product)
+                }}
+                sx={{
+                    position: "absolute",
+                    left: 12,
+                    top: 12,
+                    backgroundColor: "white",
+                    "&:hover": {
+                        backgroundColor: "#f5f5f5",
+                    },
+                    boxShadow: 1,
+                }}
+            >
+                {fav ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
+            </IconButton>
         </Card>
     )
 }
