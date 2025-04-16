@@ -13,7 +13,7 @@ export interface Product {
     stock: string
 }
 
-interface ProductResponse {
+export interface ProductResponse {
     products: Product[]
     total: number
     skip: number

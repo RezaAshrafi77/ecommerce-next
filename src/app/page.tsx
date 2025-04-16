@@ -24,8 +24,8 @@ export default function ProductListPage() {
 
     return (
         <Container maxWidth="lg" sx={{ py: 4 }}>
-            <Typography variant="h4" gutterBottom>
-                {"Products"}
+            <Typography variant="h1" fontSize={32} gutterBottom>
+                {"Gallery"}
             </Typography>
             <SearchSortBar
                 search={search}

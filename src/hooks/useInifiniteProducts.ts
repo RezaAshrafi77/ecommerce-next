@@ -13,6 +13,7 @@ export const useInfiniteProducts = (search: string, sort: "asc" | "desc") => {
                 search,
                 sort,
             }),
+        initialPageParam: 0,
         getNextPageParam: (lastPage, allPages) => {
             const totalFetched = allPages.reduce(
                 (sum, page) => sum + page.products.length,
@@ -20,6 +21,5 @@ export const useInfiniteProducts = (search: string, sort: "asc" | "desc") => {
             )
             return totalFetched < lastPage.total ? totalFetched : undefined
         },
-        staleTime: 1000 * 60,
     })
 }
